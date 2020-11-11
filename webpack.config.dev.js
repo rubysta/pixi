@@ -1,7 +1,6 @@
-// var HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 var path = require('path');
 
@@ -9,29 +8,38 @@ module.exports = {
 	mode: 'development',
 	devServer: {
 		contentBase: 'dist',
-		port: 3000
+		port: 3000,
+		// publicPath: '/dist',
+		open: true
 	},
 	devtool: 'inline-source-map',
 
-	entry: './src/index.js',
+	entry: './src/index.ts',
+	module: {
+		rules: [
+			{
+				test: /\.tsx?$/,
+				use: 'ts-loader',
+				exclude: /node_modules/,
+			},
+		],
+	},
+	resolve: {
+		extensions: [ '.tsx', '.ts', '.js' ],
+	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
 		filename: 'index_bundle.js'
 	},
-	// optimization: {
-	// 	minimizer: [new UglifyJSPlugin({
-	// 		uglifyOptions: {
-	// 			output: {
-	// 				comments: false //use it for removing comments like "/*! ... */"
-	// 			}
-	// 		}
-	// 	})]
-	// },
 	plugins: [
+		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin( {
 			patterns: [
 				{
 					from: 'build/assets/images', to: 'images'
+				},
+				{
+					from: 'build/assets/sounds', to: 'sounds'
 				}
 			]
 		}),
@@ -39,10 +47,6 @@ module.exports = {
 			template: 'build/index.html',
 			filename: 'index.html'
 		}),
-		new HtmlWebpackPlugin({
-			// inlineSource: '.(js|css)$' // embed all javascript and css inline
-		}),
-		// new HtmlWebpackInlineSourcePlugin()
 	]
 
 };

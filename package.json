@@ -5,13 +5,19 @@
   "private": true,
   "dependencies": {
     "lodash": "^4.17.20",
+    "pixi-sound": "^3.0.5",
     "pixi.js": "^5.3.3"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.165",
+    "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.2.1",
-    "html-webpack-inline-source-plugin": "^1.0.0-beta.2",
     "html-webpack-plugin": "^4.5.0",
+    "inline-chunk-html-plugin": "^1.1.1",
+    "script-ext-html-webpack-plugin": "^2.1.5",
     "terser-webpack-plugin": "^5.0.3",
+    "ts-loader": "^8.0.10",
+    "typescript": "^4.0.5",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^5.3.0",
     "webpack-cli": "^4.2.0",
